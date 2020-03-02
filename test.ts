@@ -16,7 +16,7 @@ test(async function testPrepare() {
       linux: `${releaseUrl}/libtest_plugin.so`
     }
   };
-  const plugin = await prepare(pluginOptions);
+  const plugin: Deno.Plugin = await prepare(pluginOptions);
   const { testSync } = plugin.ops;
 
   const response = testSync.dispatch(
