@@ -6,7 +6,7 @@ const textDecoder = new TextDecoder();
 
 test(async function testPrepare() {
   const releaseUrl =
-    "https://github.com/manyuanrong/deno_mongo/releases/download/plugin_bins";
+    "https://github.com/manyuanrong/deno-plugin-prepare/releases/download/plugin_bins";
 
   const pluginOptions: PreprareOptions = {
     name: "test_plugin",
