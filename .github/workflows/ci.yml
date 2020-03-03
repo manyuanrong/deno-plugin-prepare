@@ -47,6 +47,12 @@ jobs:
           path: target
           key: ${{ runner.os }}-cargo-build-target
 
+      - name: Install python
+        uses: actions/setup-python@v1
+        with:
+          python-version: "2.7.x"
+          architecture: x64
+
       - name: Build
         run: cargo build --release
 
@@ -60,4 +66,3 @@ jobs:
             target/release/libtest_plugin.dylib
             target/release/libtest_plugin.so
             target/release/test_plugin.dll
-          draft: true
