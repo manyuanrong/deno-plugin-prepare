@@ -54,6 +54,8 @@ jobs:
           architecture: x64
 
       - name: Build
+        env:
+          RUST_BACKTRACE: 1
         run: cargo build --release
 
       - name: Release TestPlugin
