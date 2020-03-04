@@ -47,6 +47,14 @@ jobs:
           path: target
           key: ${{ runner.os }}-cargo-build-target
 
+      - name: Remove Some Cache
+        if: matrix.os == 'windows-2019'
+        run: |
+          rm -rf target/release/clang
+          rm -rf target/debug/clang
+          rm -rf target/release/gn_ninja_binaries
+          rm -rf target/debug/gn_ninja_binaries
+
       - name: Install python
         uses: actions/setup-python@v1
         with:
