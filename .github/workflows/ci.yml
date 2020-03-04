@@ -50,10 +50,8 @@ jobs:
       - name: Remove Some Cache
         if: matrix.os == 'windows-2019'
         run: |
-          rm target/release/clang -Recurse -ErrorAction Ignore
-          rm target/debug/clang -Recurse -ErrorAction Ignore
-          rm target/release/gn_ninja_binaries -Recurse -ErrorAction Ignore
-          rm target/debug/gn_ninja_binaries -Recurse -ErrorAction Ignore
+          rm target/release/gn_root -Recurse -ErrorAction Ignore
+          rm target/debug/gn_root -Recurse -ErrorAction Ignore
 
       - name: Install python
         uses: actions/setup-python@v1
