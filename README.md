@@ -25,7 +25,7 @@ The API needs to provide some plug-in information, including the name of the plu
 import {
   prepare,
   PreprareOptions
-} from "https://raw.githubusercontent.com/manyuanrong/deno-plugin-prepare/master/mod.ts";
+} from "https://deno.land/x/plugin_prepare@v0.1.0/mod.ts";
 
 const releaseUrl =
   "https://github.com/manyuanrong/deno-plugin-prepare/releases/download/plugin_bins";
@@ -45,3 +45,8 @@ const response = testSync.dispatch(new Uint8Array([116, 101, 115, 116]))!;
 
 console.log(response);
 ```
+
+### TODOs
+
+- [ ] Caching binary files with URL hash (multi-version coexistence)
+- [ ] Supports downloading and decompressing .GZ files
