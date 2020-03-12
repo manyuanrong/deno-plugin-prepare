@@ -1,8 +1,11 @@
 import { existsSync } from "https://deno.land/std/fs/exists.ts";
 import * as log from "https://deno.land/std/log/mod.ts";
 import * as path from "https://deno.land/std/path/mod.ts";
+import { encode, Hash } from "https://deno.land/x/checksum@1.1.0/mod.ts";
 
 const os = Deno.build.os;
+const md5 = new Hash("md5");
+
 await log.setup({});
 
 const PLUGIN_SUFFIX_MAP: { [os in Deno.OperatingSystem]: string } = {
@@ -25,8 +28,10 @@ export interface PreprareOptions {
 export async function prepare(options: PreprareOptions) {
   const { name, urls } = options;
 
-  const localPath = path.resolve(".deno_plugins", name + pluginSuffix);
   const remoteUrl = urls[os];
+  const remoteHash = md5.digest(encode(remoteUrl + pluginSuffix)).hex();
+  const cacheFileName = `${name}_${remoteHash}${pluginSuffix}`;
+  const localPath = path.resolve(".deno_plugins", cacheFileName);
 
   Deno.mkdirSync(".deno_plugins", { recursive: true });
 
