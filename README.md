@@ -25,7 +25,7 @@ The API needs to provide some plug-in information, including the name of the plu
 import {
   prepare,
   PreprareOptions
-} from "https://deno.land/x/plugin_prepare@v0.2.0/mod.ts";
+} from "https://deno.land/x/plugin_prepare@v0.3.0/mod.ts";
 
 const releaseUrl =
   "https://github.com/manyuanrong/deno-plugin-prepare/releases/download/plugin_bins";
