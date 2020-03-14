@@ -32,6 +32,14 @@ const releaseUrl =
 
 const pluginOptions: PreprareOptions = {
   name: "test_plugin",
+
+  // Whether to output log. Optional, default is true
+  // printLog: true,
+
+  // Whether to use locally cached files. Optional, default is true
+  // checkCache: true,
+
+  // Support "http://", "https://", "file://"
   urls: {
     mac: `${releaseUrl}/libtest_plugin.dylib`,
     win: `${releaseUrl}/test_plugin.dll`,
