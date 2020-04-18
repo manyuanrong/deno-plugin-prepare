@@ -25,12 +25,8 @@ export interface PreprareOptions {
   };
 }
 
-export async function prepare(options: PreprareOptions) {
-  const { name, urls, printLog = true, checkCache = true } = options;
-
-  if (printLog) {
-    await log.setup({});
-  }
+export async function download(options: PreprareOptions): string {
+  const { name, urls, checkCache = true } = options;
 
   const remoteUrl = urls[os];
   const remoteHash = md5.digest(encode(remoteUrl + pluginSuffix)).hex();
@@ -53,6 +49,18 @@ export async function prepare(options: PreprareOptions) {
       await downloadFromRemote(name, remoteUrl, localPath);
     }
   }
+  
+  return localPath;
+}
+
+export async function prepare(options: PreprareOptions) {
+  const { name, printLog = true } = options;
+
+  if (printLog) {
+    await log.setup({});
+  }
+
+  const localPath = await download(options);
 
   log.info(`load deno plugin "${name}" from local "${localPath}"`);
   return Deno.openPlugin(localPath);
