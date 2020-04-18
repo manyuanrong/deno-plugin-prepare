@@ -25,7 +25,7 @@ export interface PreprareOptions {
   };
 }
 
-export async function download(options: PreprareOptions): string {
+export async function download(options: PreprareOptions) {
   const { name, urls, checkCache = true } = options;
 
   const remoteUrl = urls[os];
