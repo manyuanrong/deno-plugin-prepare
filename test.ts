@@ -1,10 +1,9 @@
 import { assertEquals } from "./test_deps.ts";
 import { prepare, PreprareOptions } from "./mod.ts";
 
-const { test, runTests } = Deno;
 const textDecoder = new TextDecoder();
 
-test(async function testPrepare() {
+async function testPrepare() {
   const releaseUrl =
     "https://github.com/manyuanrong/deno-plugin-prepare/releases/download/plugin_bins";
 
@@ -26,9 +25,9 @@ test(async function testPrepare() {
   )!;
 
   assertEquals(textDecoder.decode(response), "test");
-});
+}
 
-test(async function testPrepareFromLoacl() {
+async function testPrepareFromLoacl() {
   const releaseUrl = "file://./test_bins";
 
   const pluginOptions: PreprareOptions = {
@@ -50,6 +49,7 @@ test(async function testPrepareFromLoacl() {
   )!;
 
   assertEquals(textDecoder.decode(response), "test");
-});
+}
 
-runTests();
+await testPrepare();
+await testPrepareFromLoacl();
