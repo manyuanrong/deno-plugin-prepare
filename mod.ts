@@ -1,7 +1,4 @@
-import { existsSync } from "https://deno.land/std/fs/exists.ts";
-import * as log from "https://deno.land/std/log/mod.ts";
-import * as path from "https://deno.land/std/path/mod.ts";
-import { encode, Hash } from "https://deno.land/x/checksum@1.2.0/mod.ts";
+import { encode, Hash, path, log, existsSync } from "./deps.ts";
 
 const os = Deno.build.os;
 const md5 = new Hash("md5");
