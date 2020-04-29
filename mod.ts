@@ -9,7 +9,7 @@ const md5 = new Hash("md5");
 const PLUGIN_SUFFIX_MAP: { [os in Deno.OperatingSystem]: string } = {
   mac: ".dylib",
   win: ".dll",
-  linux: ".so"
+  linux: ".so",
 };
 
 const pluginSuffix = PLUGIN_SUFFIX_MAP[os];
@@ -38,7 +38,7 @@ export async function download(options: PreprareOptions) {
   if (!existsSync(localPath) || !checkCache) {
     if (!remoteUrl) {
       throw Error(
-        `"${name}" plugin does not provide binaries suitable for the current system`
+        `"${name}" plugin does not provide binaries suitable for the current system`,
       );
     }
 
@@ -49,7 +49,7 @@ export async function download(options: PreprareOptions) {
       await downloadFromRemote(name, remoteUrl, localPath);
     }
   }
-  
+
   return localPath;
 }
 
@@ -69,7 +69,7 @@ export async function prepare(options: PreprareOptions) {
 async function downloadFromRemote(
   name: string,
   remoteUrl: string,
-  savePath: string
+  savePath: string,
 ) {
   log.info(`downloading deno plugin "${name}" from "${remoteUrl}"`);
   const download = await fetch(remoteUrl);
@@ -87,7 +87,7 @@ async function copyFromLocal(name: string, from: string, to: string) {
 
   if (!existsSync(from)) {
     throw Error(
-      `copy plugin "${name}" from "${from}" failed, ${from} does not exist.`
+      `copy plugin "${name}" from "${from}" failed, ${from} does not exist.`,
     );
   }
 
