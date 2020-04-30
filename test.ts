@@ -1,5 +1,5 @@
 import { assertEquals } from "./test_deps.ts";
-import { prepare, PreprareOptions } from "./mod.ts";
+import { prepare, PerpareOptions } from "./mod.ts";
 
 const test = Deno.test;
 const textDecoder = new TextDecoder();
@@ -10,7 +10,7 @@ test({
     const releaseUrl =
       "https://github.com/manyuanrong/deno-plugin-prepare/releases/download/plugin_bins";
 
-    const pluginOptions: PreprareOptions = {
+    const pluginOptions: PerpareOptions = {
       name: "test_plugin",
       printLog: true,
       urls: {
@@ -39,7 +39,7 @@ test({
   async fn(): Promise<void> {
     const releaseUrl = "file://./test_bins";
 
-    const pluginOptions: PreprareOptions = {
+    const pluginOptions: PerpareOptions = {
       name: "test_plugin",
       printLog: true,
       checkCache: false,

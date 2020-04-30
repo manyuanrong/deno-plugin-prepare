@@ -21,4 +21,4 @@ jobs:
           deno-version: 0.x
 
       - name: Test
-        run: deno test --unstable --allow-write --allow-plugin
+        run: deno test --unstable --allow-write --allow-plugin --allow-net
