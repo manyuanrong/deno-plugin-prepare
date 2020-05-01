@@ -3,26 +3,26 @@ import { encode, Hash, path, log, existsSync } from "./deps.ts";
 const os = Deno.build.os;
 const md5 = new Hash("md5");
 
-const PLUGIN_SUFFIX_MAP: { [os in Deno.OperatingSystem]: string } = {
-  mac: ".dylib",
-  win: ".dll",
+const PLUGIN_SUFFIX_MAP: { [os in "darwin" | "linux" | "windows"]: string } = {
+  darwin: ".dylib",
   linux: ".so",
+  windows: ".dll",
 };
 
 const pluginSuffix = PLUGIN_SUFFIX_MAP[os];
 
-export interface PreprareOptions {
+export interface PerpareOptions {
   name: string;
   printLog?: boolean;
   checkCache?: boolean;
   urls: {
-    mac?: string;
+    darwin?: string;
     linux?: string;
-    win?: string;
+    windows?: string;
   };
 }
 
-export async function download(options: PreprareOptions) {
+export async function download(options: PerpareOptions): Promise<string> {
   const { name, urls, checkCache = true } = options;
 
   const remoteUrl = urls[os];
@@ -50,7 +50,7 @@ export async function download(options: PreprareOptions) {
   return localPath;
 }
 
-export async function prepare(options: PreprareOptions) {
+export async function prepare(options: PerpareOptions): Promise<number> {
   const { name, printLog = true } = options;
 
   if (printLog) {

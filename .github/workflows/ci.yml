@@ -20,5 +20,7 @@ jobs:
         with:
           deno-version: 0.x
 
-      - name: Test
-        run: deno run -A ./test.ts
+      - name: Test Local
+        run: deno run -A --unstable test_local.ts
+      - name: Test Remote
+        run: deno run -A --unstable test_remote.ts
