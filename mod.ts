@@ -32,7 +32,7 @@ export async function download(options: PerpareOptions): Promise<string> {
 
   await Deno.mkdir(".deno_plugins", { recursive: true });
 
-  if (!await exists(localPath) || !checkCache) {
+  if (!(await exists(localPath)) || !checkCache) {
     if (!remoteUrl) {
       throw Error(
         `"${name}" plugin does not provide binaries suitable for the current system`,
@@ -82,7 +82,7 @@ async function downloadFromRemote(
 async function copyFromLocal(name: string, from: string, to: string) {
   log.info(`copy deno plugin "${name}" from "${from}"`);
 
-  if (!await exists(from)) {
+  if (!(await exists(from))) {
     throw Error(
       `copy plugin "${name}" from "${from}" failed, ${from} does not exist.`,
     );

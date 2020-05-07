@@ -54,10 +54,5 @@ jobs:
         working-directory: test_plugin
         run: cargo build
 
-      - uses: actions/upload-artifact@v2
-        with:
-          name: ${{ matrix.os }}-test_bin
-          path: test_plugin/target/debug/*test_plugin.*
-
       - name: Test
         run: deno test --allow-net --allow-write --allow-plugin --unstable test.ts

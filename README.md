@@ -5,7 +5,7 @@ A library for managing deno native plugin dependencies
 [![tag](https://img.shields.io/github/tag/manyuanrong/deno-plugin-prepare.svg)](https://github.com/manyuanrong/deno-plugin-prepare)
 [![Build Status](https://github.com/manyuanrong/deno-plugin-prepare/workflows/ci/badge.svg?branch=master)](https://github.com/manyuanrong/deno-plugin-prepare/actions)
 [![license](https://img.shields.io/github/license/manyuanrong/deno-plugin-prepare.svg)](https://github.com/manyuanrong/deno-plugin-prepare)
-[![tag](https://img.shields.io/badge/deno-v0.42.0-green.svg)](https://github.com/denoland/deno)
+[![tag](https://img.shields.io/badge/deno-v1.0.0-rc1-green.svg)](https://github.com/denoland/deno)
 
 ### Why do you need this module?
 
@@ -24,7 +24,7 @@ The API needs to provide some plug-in information, including the name of the plu
 ```ts
 import {
   prepare,
-  PerpareOptions
+  PerpareOptions,
 } from "https://deno.land/x/plugin_prepare@v0.4.0/mod.ts";
 
 const releaseUrl =
@@ -43,14 +43,17 @@ const pluginOptions: PerpareOptions = {
   urls: {
     mac: `${releaseUrl}/libtest_plugin.dylib`,
     win: `${releaseUrl}/test_plugin.dll`,
-    linux: `${releaseUrl}/libtest_plugin.so`
-  }
+    linux: `${releaseUrl}/libtest_plugin.so`,
+  },
 };
 const rid = await prepare(pluginOptions);
 //@ts-ignore
 const { testSync } = Deno.core.ops();
 
-const response = Deno.core.dispatch(testSync, new Uint8Array([116, 101, 115, 116]))!;
+const response = Deno.core.dispatch(
+  testSync,
+  new Uint8Array([116, 101, 115, 116])
+)!;
 
 console.log(response);
 ```
