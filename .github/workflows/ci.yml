@@ -7,20 +7,57 @@ jobs:
     name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
+
     strategy:
       matrix:
-        os: [macOS-latest, windows-2019, ubuntu-16.04]
+        os: [macOS-latest, windows-latest, ubuntu-latest]
+
+    env:
+      DENO_VERSION: 0.42.0
+      RUST_VERSION: 1.43.0
+      RUST_BACKTRACE: full
 
     steps:
       - name: Clone repository
         uses: actions/checkout@v1
 
+      - name: Install rust
+        uses: hecrj/setup-rust-action@v1
+        with:
+          rust-version: ${{ env.RUST_VERSION }}
+
       - name: Install Deno
         uses: denolib/setup-deno@master
         with:
-          deno-version: 0.x
+          deno-version: ${{ env.DENO_VERSION }}
 
-      - name: Test Local
-        run: deno run -A --unstable test_local.ts
-      - name: Test Remote
-        run: deno run -A --unstable test_remote.ts
+      - name: Log versions
+        run: |
+          deno --version
+          rustc --version
+          cargo --version
+
+      - name: Configure cargo data directory
+        run: echo "::set-env name=CARGO_HOME::$(pwd)/.cargo_home"
+
+      - name: Cache
+        uses: actions/cache@master
+        with:
+          path: |-
+            .cargo_home
+            test_plugin/target
+          key: ${{ matrix.os }}-${{ env.DENO_VERSION }}-${{ env.RUST_VERSION }}-${{ hashFiles('test_plugin/Cargo.lock') }}
+          restore-keys: |
+            ${{ matrix.os }}-${{ env.DENO_VERSION }}-${{ env.RUST_VERSION }}-
+
+      - name: Build test_plugin
+        working-directory: test_plugin
+        run: cargo build
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.os }}-test_bin
+          path: test_plugin/target/debug/*test_plugin.*
+
+      - name: Test
+        run: deno test --allow-net --allow-write --allow-plugin --unstable test.ts
