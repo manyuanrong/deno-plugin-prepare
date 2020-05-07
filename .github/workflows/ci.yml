@@ -55,4 +55,4 @@ jobs:
         run: cargo build
 
       - name: Test
-        run: deno test --allow-net --allow-write --allow-plugin --unstable test.ts
+        run: deno test --allow-net --allow-write --allow-plugin --allow-env --unstable test.ts
