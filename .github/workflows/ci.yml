@@ -6,7 +6,7 @@ jobs:
   build:
     name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+    timeout-minutes: 30
 
     strategy:
       matrix:
@@ -14,7 +14,7 @@ jobs:
 
     env:
       DENO_VERSION: 1.0.0
-      RUST_VERSION: 1.43.0
+      RUST_VERSION: 1.43.1
       RUST_BACKTRACE: full
 
     steps:
@@ -41,12 +41,13 @@ jobs:
         uses: denoland/github-actions-cache@stable-prerelease
         with:
           path: |-
-            .cargo_home
-            target/*/.*
-            target/*/build
-            target/*/deps
+            ~/.cargo/registry
+            ~/.cargo/git
+            test_plugin/target/*/.*
+            test_plugin/target/*/build
+            test_plugin/target/*/deps
           key:
-            ${{ matrix.os }}-${{ hashFiles('Cargo.lock') }}
+            ${{ matrix.os }}-${{ hashFiles('test_plugin/Cargo.lock') }}
           restore-keys: |
             ${{ matrix.os }}-
 
@@ -55,4 +56,4 @@ jobs:
         run: cargo build
 
       - name: Test
-        run: deno test -A --unstable test.ts
+        run: deno test -A --unstable
