@@ -6,7 +6,7 @@ const fileServer = Deno.run({
     "run",
     "--allow-read",
     "--allow-net",
-    "https://deno.land/std@v1.0.0-rc1/http/file_server.ts",
+    "https://deno.land/std@v0.50.0/http/file_server.ts",
   ],
 });
 

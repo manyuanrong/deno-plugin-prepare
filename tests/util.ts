@@ -13,7 +13,9 @@ export async function testPrepare(releaseUrl: string) {
       linux: `${releaseUrl}/libtest_plugin.so`,
     },
   };
+
   const pluginId = await prepare(pluginOptions);
+  console.log("dddd");
   // @ts-ignore
   const { testSync } = Deno.core.ops();
 
@@ -21,7 +23,7 @@ export async function testPrepare(releaseUrl: string) {
   const response = Deno.core.dispatch(
     testSync,
     new Uint8Array([116, 101, 115, 116]),
-    new Uint8Array([116, 101, 115, 116]),
+    new Uint8Array([116, 101, 115, 116])
   )!;
 
   assertEquals(textDecoder.decode(response), "test");

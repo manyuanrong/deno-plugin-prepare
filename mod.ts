@@ -35,7 +35,7 @@ export async function download(options: PerpareOptions): Promise<string> {
   if (!(await exists(localPath)) || !checkCache) {
     if (!remoteUrl) {
       throw Error(
-        `"${name}" plugin does not provide binaries suitable for the current system`,
+        `"${name}" plugin does not provide binaries suitable for the current system`
       );
     }
 
@@ -60,13 +60,19 @@ export async function prepare(options: PerpareOptions): Promise<number> {
   const localPath = await download(options);
 
   log.info(`load deno plugin "${name}" from local "${localPath}"`);
-  return Deno.openPlugin(localPath);
+
+  try {
+    return Deno.openPlugin(localPath);
+  } catch (err) {
+    console.log("eee", err);
+    return 0;
+  }
 }
 
 async function downloadFromRemote(
   name: string,
   remoteUrl: string,
-  savePath: string,
+  savePath: string
 ) {
   log.info(`downloading deno plugin "${name}" from "${remoteUrl}"`);
   const download = await fetch(remoteUrl);
@@ -84,7 +90,7 @@ async function copyFromLocal(name: string, from: string, to: string) {
 
   if (!(await exists(from))) {
     throw Error(
-      `copy plugin "${name}" from "${from}" failed, ${from} does not exist.`,
+      `copy plugin "${name}" from "${from}" failed, ${from} does not exist.`
     );
   }
 
