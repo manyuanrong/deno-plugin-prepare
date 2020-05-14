@@ -38,12 +38,17 @@ jobs:
           cargo --version
 
       - name: Cache
-        uses: actions/cache@master
+        uses: denoland/github-actions-cache@stable-prerelease
         with:
-          path: test_plugin/target
-          key: ${{ matrix.os }}-${{ env.DENO_VERSION }}-${{ env.RUST_VERSION }}-${{ hashFiles('test_plugin/Cargo.lock') }}
+          path: |-
+            .cargo_home
+            target/*/.*
+            target/*/build
+            target/*/deps
+          key:
+            ${{ matrix.os }}-${{ hashFiles('Cargo.lock') }}
           restore-keys: |
-            ${{ matrix.os }}-${{ env.DENO_VERSION }}-${{ env.RUST_VERSION }}-
+            ${{ matrix.os }}-
 
       - name: Build test_plugin
         working-directory: test_plugin
