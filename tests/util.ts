@@ -15,7 +15,7 @@ export async function testPrepare(releaseUrl: string) {
   };
 
   const pluginId = await prepare(pluginOptions);
-  console.log("dddd");
+
   // @ts-ignore
   const { testSync } = Deno.core.ops();
 

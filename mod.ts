@@ -1,4 +1,4 @@
-import { Hash, path, log, exists } from "./deps.ts";
+import { exists, Hash, log, path } from "./deps.ts";
 
 const os = Deno.build.os;
 const md5 = new Hash("md5");
@@ -61,12 +61,7 @@ export async function prepare(options: PerpareOptions): Promise<number> {
 
   log.info(`load deno plugin "${name}" from local "${localPath}"`);
 
-  try {
-    return Deno.openPlugin(localPath);
-  } catch (err) {
-    console.log("eee", err);
-    return 0;
-  }
+  return Deno.openPlugin(localPath);
 }
 
 async function downloadFromRemote(
