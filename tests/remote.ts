@@ -1,2 +1,7 @@
 import { testPrepare } from "./util.ts";
-await testPrepare("http://127.0.0.1:4500/test_plugin/target/debug");
+import { assert } from "../test_deps.ts";
+
+const address = Deno.args[0];
+assert(address && address.length > 0, "no address");
+
+await testPrepare(`http://${address}/test_plugin/target/debug`);
