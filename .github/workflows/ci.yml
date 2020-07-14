@@ -38,7 +38,7 @@ jobs:
           cargo --version
 
       - name: Cache
-        uses: denoland/github-actions-cache@stable-prerelease
+        uses: actions/cache@v2
         with:
           path: |-
             ~/.cargo/registry
@@ -47,7 +47,7 @@ jobs:
             test_plugin/target/*/build
             test_plugin/target/*/deps
           key:
-            ${{ matrix.os }}-${{ hashFiles('test_plugin/Cargo.lock') }}
+            ${{ matrix.os }}-${{ hashFiles('test_plugin//Cargo.lock') }}
           restore-keys: |
             ${{ matrix.os }}-
 
