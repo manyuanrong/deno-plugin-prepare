@@ -19,7 +19,7 @@ Deno's plugin is compiled with other system-level languages, and cannot be compi
 
 The API needs to provide some plug-in information, including the name of the plugin, and the remote url of the binary file for different platforms. It is similar to an asynchronous version of `Deno.openPlugin`, which will automatically download the corresponding binary file according to the platform and cache it in the `.deno_plugins` directory of the current working directory.
 
-### Useage
+### Usage
 
 ```ts
 import {
