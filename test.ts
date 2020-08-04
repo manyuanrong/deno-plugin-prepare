@@ -66,9 +66,7 @@ function startServer(addr: string) {
         request,
         resolve(`.${request.url}`),
       );
-      const file = response.body as Deno.File;
       await request.respond(response);
-      file.close();
     }
   })();
 
