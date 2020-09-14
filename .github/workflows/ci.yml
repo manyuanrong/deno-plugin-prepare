@@ -13,8 +13,8 @@ jobs:
         os: [macOS-latest, windows-latest, ubuntu-latest]
 
     env:
-      DENO_VERSION: 1.2.2
-      RUST_VERSION: 1.45.0
+      DENO_VERSION: 1.4.0
+      RUST_VERSION: 1.46.0
       RUST_BACKTRACE: full
 
     steps:
@@ -46,8 +46,7 @@ jobs:
             test_plugin/target/*/.*
             test_plugin/target/*/build
             test_plugin/target/*/deps
-          key:
-            ${{ matrix.os }}-${{ hashFiles('test_plugin//Cargo.lock') }}
+          key: ${{ matrix.os }}-${{ hashFiles('test_plugin//Cargo.lock') }}
           restore-keys: |
             ${{ matrix.os }}-
 
@@ -57,3 +56,6 @@ jobs:
 
       - name: Test
         run: deno test -A --unstable
+
+      - name: Test
+        run: deno test -A --unstable --no-check
