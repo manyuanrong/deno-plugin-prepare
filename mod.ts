@@ -1,7 +1,6 @@
-import { exists, Hash, log, path } from "./deps.ts";
+import { exists, createHash, log, path } from "./deps.ts";
 
 const os = Deno.build.os;
-const md5 = new Hash("md5");
 
 const PLUGIN_SUFFIX_MAP: { [os in typeof Deno.build.os]: string } = {
   darwin: ".dylib",
@@ -26,7 +25,9 @@ export async function download(options: PerpareOptions): Promise<string> {
   const { name, urls, checkCache = true } = options;
 
   const remoteUrl = urls[os];
-  const remoteHash = md5.digestString(remoteUrl + pluginSuffix).hex();
+  const md5 = createHash("md5");
+  md5.update(remoteUrl + pluginSuffix);
+  const remoteHash = md5.toString("hex");
   const cacheFileName = `${name}_${remoteHash}${pluginSuffix}`;
   const localPath = path.resolve(".deno_plugins", cacheFileName);
 
@@ -35,7 +36,7 @@ export async function download(options: PerpareOptions): Promise<string> {
   if (!(await exists(localPath)) || !checkCache) {
     if (!remoteUrl) {
       throw Error(
-        `"${name}" plugin does not provide binaries suitable for the current system`
+        `"${name}" plugin does not provide binaries suitable for the current system`,
       );
     }
 
@@ -67,7 +68,7 @@ export async function prepare(options: PerpareOptions): Promise<number> {
 async function downloadFromRemote(
   name: string,
   remoteUrl: string,
-  savePath: string
+  savePath: string,
 ) {
   log.info(`downloading deno plugin "${name}" from "${remoteUrl}"`);
   const download = await fetch(remoteUrl);
@@ -85,7 +86,7 @@ async function copyFromLocal(name: string, from: string, to: string) {
 
   if (!(await exists(from))) {
     throw Error(
-      `copy plugin "${name}" from "${from}" failed, ${from} does not exist.`
+      `copy plugin "${name}" from "${from}" failed, ${from} does not exist.`,
     );
   }
 
