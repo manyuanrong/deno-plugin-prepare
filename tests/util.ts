@@ -23,7 +23,7 @@ export async function testPrepare(releaseUrl: string) {
   const response = Deno.core.dispatch(
     testSync,
     new Uint8Array([116, 101, 115, 116]),
-    new Uint8Array([116, 101, 115, 116])
+    new Uint8Array([116, 101, 115, 116]),
   )!;
 
   assertEquals(textDecoder.decode(response), "test");
