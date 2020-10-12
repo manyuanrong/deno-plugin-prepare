@@ -10,7 +10,7 @@ const PLUGIN_SUFFIX_MAP: { [os in typeof Deno.build.os]: string } = {
 
 const pluginSuffix = PLUGIN_SUFFIX_MAP[os];
 
-export interface PerpareOptions {
+export interface PrepareOptions {
   name: string;
   printLog?: boolean;
   checkCache?: boolean;
@@ -21,7 +21,10 @@ export interface PerpareOptions {
   };
 }
 
-export async function download(options: PerpareOptions): Promise<string> {
+// @deprecated Backwards compat
+export type PerpareOptions = PrepareOptions;
+
+export async function download(options: PrepareOptions): Promise<string> {
   const { name, urls, checkCache = true } = options;
 
   const remoteUrl = urls[os];
@@ -51,7 +54,7 @@ export async function download(options: PerpareOptions): Promise<string> {
   return localPath;
 }
 
-export async function prepare(options: PerpareOptions): Promise<number> {
+export async function prepare(options: PrepareOptions): Promise<number> {
   const { name, printLog = true } = options;
 
   if (printLog) {
