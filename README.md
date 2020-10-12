@@ -24,13 +24,13 @@ The API needs to provide some plug-in information, including the name of the plu
 ```ts
 import {
   prepare,
-  PerpareOptions,
+  PrepareOptions,
 } from "https://deno.land/x/plugin_prepare@v0.6.0/mod.ts";
 
 const releaseUrl =
   "https://github.com/manyuanrong/deno-plugin-prepare/releases/download/plugin_bins";
 
-const pluginOptions: PerpareOptions = {
+const pluginOptions: PrepareOptions = {
   name: "test_plugin",
 
   // Whether to output log. Optional, default is true
