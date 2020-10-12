@@ -21,7 +21,6 @@ export interface PrepareOptions {
   };
 }
 
-
 export async function download(options: PrepareOptions): Promise<string> {
   const { name, urls, checkCache = true } = options;
 
