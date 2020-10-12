@@ -21,8 +21,6 @@ export interface PrepareOptions {
   };
 }
 
-// @deprecated Backwards compat
-export type PerpareOptions = PrepareOptions;
 
 export async function download(options: PrepareOptions): Promise<string> {
   const { name, urls, checkCache = true } = options;
