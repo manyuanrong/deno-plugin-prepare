@@ -31,14 +31,14 @@ export async function download(options: PrepareOptions): Promise<string> {
   const cacheFileName = `${name}_${remoteHash}${pluginSuffix}`;
   const localPath = path.resolve(".deno_plugins", cacheFileName);
 
-  await Deno.mkdir(".deno_plugins", { recursive: true });
-
   if (!(await exists(localPath)) || !checkCache) {
     if (!remoteUrl) {
       throw Error(
         `"${name}" plugin does not provide binaries suitable for the current system`,
       );
     }
+
+    await Deno.mkdir(".deno_plugins", { recursive: true });
 
     if (remoteUrl.startsWith("file://")) {
       const fromPath = path.resolve(remoteUrl.slice(7));
