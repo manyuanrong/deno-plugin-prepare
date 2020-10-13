@@ -24,13 +24,8 @@ The API needs to provide some plug-in information, including the name of the plu
 ```ts
 import {
   prepare,
-<<<<<<< HEAD
   PrepareOptions,
-} from "https://deno.land/x/plugin_prepare@v0.6.0/mod.ts";
-=======
-  PerpareOptions,
 } from "https://deno.land/x/plugin_prepare@v0.8.0/mod.ts";
->>>>>>> [feat] support custom cache dir
 
 const releaseUrl =
   "https://github.com/manyuanrong/deno-plugin-prepare/releases/download/plugin_bins";
