@@ -1,5 +1,5 @@
 import { exists } from "./deps.ts";
-import { assert, serve, serveFile, resolve } from "./test_deps.ts";
+import { assert, resolve, serve, serveFile } from "./test_deps.ts";
 
 const pluginDir = ".deno_plugins";
 
@@ -28,6 +28,7 @@ Deno.test("testPrepareLocal", async () => {
       "run",
       "--allow-read",
       "--allow-write",
+      "--allow-env",
       "--allow-plugin",
       "--unstable",
       "./tests/local.ts",
@@ -45,6 +46,7 @@ Deno.test("testPrepareLocal", async () => {
       "run",
       "--allow-read",
       "--allow-write",
+      "--allow-env",
       "--allow-plugin",
       "--unstable",
       "./tests/local.ts",
@@ -84,6 +86,7 @@ Deno.test("testPrepareRemote", async () => {
       "deno",
       "run",
       "--allow-read",
+      "--allow-env",
       "--allow-write",
       "--allow-plugin",
       "--allow-net",
@@ -103,6 +106,7 @@ Deno.test("testPrepareRemote", async () => {
       "deno",
       "run",
       "--allow-read",
+      "--allow-env",
       "--allow-write",
       "--allow-plugin",
       "--allow-net",

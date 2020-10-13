@@ -1,4 +1,4 @@
-import { exists, createHash, log, path } from "./deps.ts";
+import { createHash, exists, log, path } from "./deps.ts";
 
 const os = Deno.build.os;
 
@@ -14,6 +14,7 @@ export interface PrepareOptions {
   name: string;
   printLog?: boolean;
   checkCache?: boolean;
+  cacheDir?: string;
   urls: {
     darwin?: string;
     linux?: string;
@@ -21,15 +22,18 @@ export interface PrepareOptions {
   };
 }
 
+const defaultCacheDir = Deno.env.get("DENO_PLUGIN_DIR") ?? ".deno_plugins";
+
 export async function download(options: PrepareOptions): Promise<string> {
   const { name, urls, checkCache = true } = options;
 
+  const cacheDir = options.cacheDir ?? defaultCacheDir;
   const remoteUrl = urls[os];
   const md5 = createHash("md5");
   md5.update(remoteUrl + pluginSuffix);
   const remoteHash = md5.toString("hex");
   const cacheFileName = `${name}_${remoteHash}${pluginSuffix}`;
-  const localPath = path.resolve(".deno_plugins", cacheFileName);
+  const localPath = path.resolve(cacheDir, cacheFileName);
 
   if (!(await exists(localPath)) || !checkCache) {
     if (!remoteUrl) {
@@ -38,7 +42,7 @@ export async function download(options: PrepareOptions): Promise<string> {
       );
     }
 
-    await Deno.mkdir(".deno_plugins", { recursive: true });
+    await Deno.mkdir(cacheDir, { recursive: true });
 
     if (remoteUrl.startsWith("file://")) {
       const fromPath = path.resolve(remoteUrl.slice(7));

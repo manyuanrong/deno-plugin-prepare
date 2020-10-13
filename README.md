@@ -5,7 +5,7 @@ A library for managing deno native plugin dependencies
 [![tag](https://img.shields.io/github/tag/manyuanrong/deno-plugin-prepare.svg)](https://github.com/manyuanrong/deno-plugin-prepare)
 [![Build Status](https://github.com/manyuanrong/deno-plugin-prepare/workflows/ci/badge.svg?branch=master)](https://github.com/manyuanrong/deno-plugin-prepare/actions)
 [![license](https://img.shields.io/github/license/manyuanrong/deno-plugin-prepare.svg)](https://github.com/manyuanrong/deno-plugin-prepare)
-[![tag](https://img.shields.io/badge/deno-v1.0.0-green.svg)](https://github.com/denoland/deno)
+[![tag](https://img.shields.io/badge/deno-v1.4.0-green.svg)](https://github.com/denoland/deno)
 
 ### Why do you need this module?
 
@@ -24,8 +24,13 @@ The API needs to provide some plug-in information, including the name of the plu
 ```ts
 import {
   prepare,
+<<<<<<< HEAD
   PrepareOptions,
 } from "https://deno.land/x/plugin_prepare@v0.6.0/mod.ts";
+=======
+  PerpareOptions,
+} from "https://deno.land/x/plugin_prepare@v0.8.0/mod.ts";
+>>>>>>> [feat] support custom cache dir
 
 const releaseUrl =
   "https://github.com/manyuanrong/deno-plugin-prepare/releases/download/plugin_bins";
@@ -58,6 +63,10 @@ const response = Deno.core.dispatch(
 console.log(response);
 Deno.close(rid);
 ```
+
+### Custom cache path
+
+By default, binary files will be cached in the `.deno_plugins` directory. In some cases, we need to store in other locations, you can set the `DENO_PLUGIN_DIR` environment variable
 
 ### TODOs
 
