@@ -1,10 +1,10 @@
-import { PerpareOptions, prepare } from "../mod.ts";
+import { PrepareOptions, prepare } from "../mod.ts";
 import { assertEquals } from "../test_deps.ts";
 
 const textDecoder = new TextDecoder();
 
 export async function testPrepare(releaseUrl: string) {
-  const pluginOptions: PerpareOptions = {
+  const pluginOptions: PrepareOptions = {
     name: "test_plugin",
     printLog: true,
     urls: {
